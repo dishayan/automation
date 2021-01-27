@@ -1,0 +1,23 @@
+- name: Download ngnix1.18
+  get_url:
+    url: http://nginx.org/packages/centos/7/x86_64/RPMS/nginx-1.18.0-2.el7.ngx.x86_64.rpm
+    dest: /root/wordpress/files/
+- name: install ngnix version 1.18
+  yum:
+    name: /root/wordpress/files/nginx-1.18.0-2.el7.ngx.x86_64.rpm
+    state: present
+- name: Create Ngnix Document Root
+  file:
+    path: "/var/www/{{ http_host }}"
+    state: directory
+    owner: "apache"
+    group: "apache"
+    mode: '0755'
+ 
+- name: Set up ngnix VirtualHost
+  template:
+    src: "files/httpd.conf"
+    dest: "/etc/httpd/conf.d/{{ http_conf }}"
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r

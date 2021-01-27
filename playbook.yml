@@ -1,0 +1,14 @@
+- hosts: centoshost
+  gather_facts: False
+  become: true
+  vars_files:
+    - vars/default.yml
+  roles:
+    - useradd
+    - ntp
+    - ngnix
+    - php
+    - mysql
+    - wordpress
+    - firewall
+    - bashscript
